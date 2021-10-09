@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'add_page.dart';
+import 'home_page.dart';
+import 'profil_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,51 +18,29 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: const TabsPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class TabsPage extends StatefulWidget {
+  const TabsPage({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<TabsPage> createState() => _TabsPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _TabsPageState extends State<TabsPage> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+  final List<Widget> _widgetOptions = [
+    const HomePage(),
+    const AddPage(),
+    const ProfilPage(),
   ];
-  static const TextStyle titleStyle =
-      TextStyle(fontSize: 20, fontWeight: FontWeight.normal);
-  static const List<Widget> _widgetTitle = <Widget>[
-    Text(
-      'One',
-      style: titleStyle,
-    ),
-    Text(
-      'Two',
-      style: titleStyle,
-    ),
-    Text(
-      'Three',
-      style: titleStyle,
-    ),
+  final List<String> _widgetTitle = [
+    'Accueil',
+    'Ajouter un post',
+    'Profil',
   ];
 
   void _onItemTapped(int index) {
@@ -72,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: _widgetTitle.elementAt(_selectedIndex),
+        title: Text(_widgetTitle.elementAt(_selectedIndex)),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -81,19 +62,19 @@ class _MyHomePageState extends State<MyHomePage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Accueil',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
+            icon: Icon(Icons.add),
+            label: 'Ajouter',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
+            icon: Icon(Icons.person),
+            label: 'Profil',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.blue[700],
         onTap: _onItemTapped,
       ),
     );
